@@ -1,0 +1,18 @@
+---
+- name: add crush buckets
+  command: ceph osd crush add-bucket {{ item.name }} {{ item.type }}
+  with_items: "{{ crush_buckets }}"
+
+- name: move crush buckets to the right location
+  command: ceph osd crush move {{ item.name }} {{ item.location }}
+  with_items: "{{ crush_buckets }}"
+  when: item.location is defined
+
+- name: get list of crush rules
+  command: ceph osd crush rule list
+  register: current_crush_rules
+
+- name: set crush rules
+  command: ceph osd crush rule create-simple {{ item.name }} {{ item.root }} {{ item.bucket_type }} {{ item.choose_mode }}
+  when: item.name not in current_crush_rules.stdout | from_json
+  with_items: "{{ crush_rules }}"

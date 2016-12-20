@@ -79,6 +79,12 @@
     - global_in_ceph_conf_overrides
     - ceph_conf_overrides.global.osd_pool_default_size is defined
 
+- include: crush.yml
+  when:
+    - not mon_containerized_deployment
+    - crush_rules
+    - inventory_hostname == groups[mon_group_name][0]
+
 - include: openstack_config.yml
   when:
     - openstack_config

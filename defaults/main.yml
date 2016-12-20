@@ -37,6 +37,26 @@ calamari: false
 # Enable debugging for Calamari
 calamari_debug: false
 
+# Set CRUSH buckets
+# This is a list of dicts with the keys name, type and location. The location
+# key is optional.
+# Example:
+# crush_buckets:
+#   - name: storage-a
+#     type: rack
+#     location: root=storage
+crush_buckets: []
+
+# Set CRUSH rules
+# This is a list of dicts with the keys name, root, bucket_type and choose_mode
+# Example:
+# crush_rules:
+#   - name: myrule
+#     root: spinners
+#     bucket_type: rack
+#     choose_mode: firstn
+crush_rules: []
+
 #############
 # OPENSTACK #
 #############
