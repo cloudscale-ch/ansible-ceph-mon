@@ -21,6 +21,7 @@
   when:
     - secure_cluster
     - not mon_containerized_deployment
+    - "{{ inventory_hostname == groups[mon_group_name] | last }}"
 
 - include: ./docker/main.yml
   when: mon_containerized_deployment
