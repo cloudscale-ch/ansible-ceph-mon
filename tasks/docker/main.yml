@@ -4,7 +4,7 @@
   register: ceph_health
   changed_when: false
   failed_when: false
-  always_run: true
+  check_mode: False
 
 - include: checks.yml
   when:
@@ -110,7 +110,7 @@
     become: false
     failed_when: false
     register: stat_mgr_keys
-    always_run: true
+    check_mode: False
     when:
       - "{{ groups.get(mgr_group_name, []) | length > 0 }}"
 
