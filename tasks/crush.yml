@@ -9,7 +9,7 @@
   when: item.location is defined
 
 - name: get list of crush rules
-  command: ceph osd crush rule list
+  command: ceph osd crush rule list -f json
   register: current_crush_rules
 
 - name: set crush rules
