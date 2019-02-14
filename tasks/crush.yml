@@ -13,6 +13,6 @@
   register: current_crush_rules
 
 - name: set crush rules
-  command: ceph osd crush rule create-simple {{ item.name }} {{ item.root }} {{ item.bucket_type }} {{ item.choose_mode }}
+  command: ceph osd crush rule create-replicated {{ item.name }} {{ item.root }} {{ item.bucket_type }} {{ item.device_class | default() }}
   when: item.name not in current_crush_rules.stdout | from_json
   with_items: "{{ crush_rules }}"
